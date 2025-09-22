@@ -21,17 +21,20 @@
     <ClInclude Include="Shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Modelado_Jerarquico.cpp">
+    <ClCompile Include="Carga de Modelos.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shader\core.frag">
+    <None Include="Shader\modelLoading.frag">
       <Filter>Source Files\shader</Filter>
     </None>
-    <None Include="Shader\core.vs">
+    <None Include="Shader\modelLoading.vs">
       <Filter>Source Files\shader</Filter>
     </None>
   </ItemGroup>
