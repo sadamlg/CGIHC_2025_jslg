@@ -1,6 +1,6 @@
 //Sadam Lopez Gonzalez
-//Previo 6
-//Fecha de entrega: 21 de septiembre 2025
+//Practica 6
+//Fecha de entrega: 26 de septiembre 2025
 //numero de cuenta: 315279810
 
 // Std. Includes
@@ -99,8 +99,14 @@ int main( )
     Shader shader( "Shader/modelLoading.vs", "Shader/modelLoading.frag" );
     
     // Load models
-    Model dog((char*)"Models/RedDog.obj");
-    Model Moon((char*)"Models/MoonPrueba.obj");
+    //Model dog((char*)"Models/RedDog.obj");
+    //Model Moon((char*)"Models/MoonPrueba.obj");
+    Model garage((char*)"Models/garage/parkhaus.obj");
+    Model dodge((char*)"Models/dodgeCharger/K1AGJVQ50VCSD2UOPBS13FD0S.obj"); 
+    Model hotwheel((char*)"Models/hotwheels/hotwheels.obj"); 
+    Model audir8((char*)"Models/Audi_R8_V10/audi.obj");
+    Model audi((char*)"Models/audir8/audi.obj");
+    Model tesla((char*)"Models/tesla/tesla.obj");
     glm::mat4 projection = glm::perspective( camera.GetZoom( ), ( float )SCREEN_WIDTH/( float )SCREEN_HEIGHT, 0.1f, 100.0f );
     
     // Game loop
@@ -125,13 +131,52 @@ int main( )
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
         
         // Draw the loaded model
-        glm::mat4 model(1);
+        /*
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-        dog.Draw(shader);
+        dog.Draw(shader);*/
 
-        model = glm::translate(model, glm::vec3(1.5f, 0.0f, 1.0f));
+        glm::mat4 model(1);
+        model = glm::scale(model, glm::vec3(4.0f, 4.0f, 5.0f));
+        model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-        Moon.Draw(shader);
+        garage.Draw(shader);
+
+        model = glm::mat4 (1);
+        model = glm::scale(model, glm::vec3(0.7f, 0.7f, 0.7f));
+        model = glm::translate(model, glm::vec3(0.0f, 0.4f, 0.5f));
+        model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        dodge.Draw(shader);
+
+        model = glm::mat4(1);
+        model = glm::scale(model, glm::vec3(0.16f, 0.16f, 0.16f));
+        model = glm::translate(model, glm::vec3(-9.0f, 1.2f, 11.0f));
+        model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        audi.Draw(shader);
+
+        model = glm::mat4 (1);
+        model = glm::scale(model, glm::vec3(0.3f, 0.3f, 0.3f));
+        model = glm::translate(model, glm::vec3(4.0f, 0.2f, 2.0f));
+        model = glm::rotate(model, glm::radians(-135.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        hotwheel.Draw(shader);
+
+        model = glm::mat4(1);
+        model = glm::scale(model, glm::vec3(0.3f, 0.3f, 0.3f));
+        model = glm::translate(model, glm::vec3(-4.5f, 0.1f, 1.5f));
+        model = glm::rotate(model, glm::radians(-135.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        audir8.Draw(shader);
+
+        model = glm::mat4(1);
+        model = glm::scale(model, glm::vec3(0.15f, 0.15f, 0.15f));
+        model = glm::translate(model, glm::vec3(11.0f, 0.8f, 13.0f));
+        model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        tesla.Draw(shader);
+
+        
 
         // Swap the buffers
         glfwSwapBuffers( window );
