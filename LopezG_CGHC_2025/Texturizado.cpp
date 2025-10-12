@@ -1,6 +1,6 @@
 //Sadam Lopez Gonzalez
-//Previo 7
-//Fecha de entrega: 28 de septiembre 2025
+//Practica 7
+//Fecha de entrega: 10 de octubre 2025
 //numero de cuenta: 315279810
 
 #include <iostream>
@@ -104,19 +104,53 @@ int main()
 	// Set up vertex data (and buffer(s)) and attribute pointers
 	GLfloat vertices[] =
 	{
-		// Positions            // Colors              // Texture Coords
-		-0.5f, -0.5f, 0.0f,    1.0f, 1.0f,1.0f,		0.25f,0.33f,
-		 0.5f, -0.5f, 0.0f,	   1.0f, 1.0f,1.0f,		0.5f,0.33f,
-		 0.5f,  0.5f, 0.0f,    1.0f, 1.0f,1.0f,	    0.5f,0.66f,
-		-0.5f,  0.5f, 0.0f,    1.0f, 1.0f,1.0f,		0.25f,0.66f,
+		// Frente (Z = +0.5)
+		-0.5f, -0.5f,  0.5f,   1.0f,1.0f,1.0f,    0.25f,0.33f,
+		 0.5f, -0.5f,  0.5f,   1.0f,1.0f,1.0f,    0.5f,0.33f,
+		 0.5f,  0.5f,  0.5f,   1.0f,1.0f,1.0f,    0.5f,0.66f,
+		-0.5f,  0.5f,  0.5f,   1.0f,1.0f,1.0f,    0.25f,0.66f,
+
+		// Atrás (Z = -0.5)
+		-0.5f, -0.5f, -0.5f,   1.0f,1.0f,1.0f,    0.0f,0.33f,
+		 0.5f, -0.5f, -0.5f,   1.0f,1.0f,1.0f,    0.25f,0.33f,
+		 0.5f,  0.5f, -0.5f,   1.0f,1.0f,1.0f,    0.25f,0.66f,
+		-0.5f,  0.5f, -0.5f,   1.0f,1.0f,1.0f,    0.0f,0.66f,
+
+		// Izquierda (X = -0.5)
+		-0.5f, -0.5f, -0.5f,   1.0f,1.0f,1.0f,    0.25f,0.66f,
+		-0.5f, -0.5f,  0.5f,   1.0f,1.0f,1.0f,    0.5f,0.66f,
+		-0.5f,  0.5f,  0.5f,   1.0f,1.0f,1.0f,    0.5f,1.0f,
+		-0.5f,  0.5f, -0.5f,   1.0f,1.0f,1.0f,    0.25f,1.0f,
+
+		// Derecha (X = +0.5)
+		 0.5f, -0.5f, -0.5f,   1.0f,1.0f,1.0f,    0.25f,0.0f,
+		 0.5f, -0.5f,  0.5f,   1.0f,1.0f,1.0f,    0.5f,0.0f,
+		 0.5f,  0.5f,  0.5f,   1.0f,1.0f,1.0f,    0.5f,0.33f,
+		 0.5f,  0.5f, -0.5f,   1.0f,1.0f,1.0f,    0.25f,0.33f,
+
+		 // Arriba (Y = +0.5)
+		 -0.5f,  0.5f,  0.5f,   1.0f,1.0f,1.0f,    0.5f,0.33f,
+		  0.5f,  0.5f,  0.5f,   1.0f,1.0f,1.0f,    0.75f,0.33f,
+		  0.5f,  0.5f, -0.5f,   1.0f,1.0f,1.0f,    0.75f,0.66f,
+		 -0.5f,  0.5f, -0.5f,   1.0f,1.0f,1.0f,    0.5f,0.66f,
+
+		 // Abajo (Y = -0.5)
+		 -0.5f, -0.5f,  0.5f,   1.0f,1.0f,1.0f,    0.75f,0.33f,
+		  0.5f, -0.5f,  0.5f,   1.0f,1.0f,1.0f,    1.0f,0.33f,
+		  0.5f, -0.5f, -0.5f,   1.0f,1.0f,1.0f,    1.0f,0.66f,
+		 -0.5f, -0.5f, -0.5f,   1.0f,1.0f,1.0f,    0.75f,0.66f,
 	};
 
-	GLuint indices[] =
-	{  // Note that we start from 0!
-		0,1,3,
-		1,2,3
-	
+	GLuint indices[] = {
+		// Note that we start from 0!
+		 0,  1,  3,  1,  2,  3,   // Frente
+		 4,  5,  7,  5,  6,  7,   // Atrás
+		 8,  9, 11,  9, 10, 11,   // Izquierda
+		12, 13, 15, 13, 14, 15,   // Derecha
+		16, 17, 19, 17, 18, 19,   // Arriba
+		20, 21, 23, 21, 22, 23    // Abajo
 	};
+
 
 	// First, set the container's VAO (and VBO)
 	GLuint VBO, VAO,EBO;
@@ -210,7 +244,7 @@ int main()
 		DoMovement();
 
 		// Clear the colorbuffer
-		glClearColor(1.1f, 1.1f, 1.1f, 1.0f);
+		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		lampShader.Use();
@@ -235,7 +269,7 @@ int main()
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		// Draw the light object (using light's vertex attributes)
 		glBindVertexArray(VAO);
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
 		
 
 
